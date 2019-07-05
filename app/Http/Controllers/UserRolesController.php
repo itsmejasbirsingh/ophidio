@@ -28,7 +28,7 @@ class UserRolesController extends Controller
             return $e->getMessage();
         }
 
-        return redirect('admin/role/add');
+        return redirect('admin/role/add')->with('roleAddStatus', 'Role ' .$request->input('role') . ' Added!');
     }
 
     /**
@@ -38,10 +38,15 @@ class UserRolesController extends Controller
      */
     public function add(){
 
+    	$roles = new UserRoles();
+
+        $userRoles = $roles->get();
+
         return view('admin.add_role',
                 [  
                     'activeTab' => 'users', 
-                    'activeLink' => 'addRole' 
+                    'activeLink' => 'addRole',
+                    'userRoles' => $userRoles 
                 ] 
             );
     }

@@ -21,6 +21,26 @@
 	    </section>
 
     	<section class="content">
+        @if (session('userUpdateStatus'))
+            <div class="alert alert-success">
+                {{ session('userUpdateStatus') }}
+            </div>
+        @endif
+         @if (session('userAddSession'))
+            <div class="alert alert-success">
+                {{ session('userAddSession') }}
+            </div>
+        @endif
+        @if (session('userDeactivateStatus'))
+            <div class="alert alert-danger">
+                {{ session('userDeactivateStatus') }}
+            </div>
+        @endif
+        @if (session('userActivateStatus'))
+            <div class="alert alert-success">
+                {{ session('userActivateStatus') }}
+            </div>
+        @endif
        <div class="box">
                                 <div class="box-header">
                                                         
@@ -38,10 +58,11 @@
                                     </div></div></div><table id="example1" class="table table-bordered table-striped dataTable" aria-describedby="example1_info">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 283px;">Sno</th>
-                                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 412px;">Name</th>
-                                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 371px;">Email</th>
-                                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 242px;">Status</th>
+                                                <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 50px;">Sno</th>
+                                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Name</th>
+                                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Email</th>
+                                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 171px;">Role</th>
+                                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 100px;">Status</th>
                                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 171px;">Updated at</th>
                                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 171px;">Action</th>
                                             </tr>
@@ -52,6 +73,7 @@
                                                 <th rowspan="1" colspan="1">Sno</th>
                                                 <th rowspan="1" colspan="1">Name</th>
                                                 <th rowspan="1" colspan="1">Email</th>
+                                                <th rowspan="1" colspan="1">Role</th>
                                                 <th rowspan="1" colspan="1">Status</th>
                                                 <th rowspan="1" colspan="1">Updated at</th>
                                                 <th rowspan="1" colspan="1">Action</th>
@@ -64,6 +86,7 @@
                                                         <td class="  sorting_1"> {{ ++$key }} </td>
                                                         <td class="  sorting_1"> {{ $user->name }} </td>
                                                         <td class=" "> {{ $user->email }} </td>
+                                                        <td class=" "> {{ $user->role }} </td>
                                                         <td class=" "> {{ 1 === $user->status ? 'Active' : 'Inactive' }} </td>
                                                         <td class=" "> {{ $user->updated_at }} </td>
                                                         <td class="edit-user"> 

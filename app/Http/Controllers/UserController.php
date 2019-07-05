@@ -81,6 +81,8 @@ class UserController extends Controller
             return $e->getMessage();
         }
 
+        session()->flash('userAddSession', 'User ' . $request->input('username') . ' Added!' );
+
         return redirect('admin/users');
     }
 
@@ -125,7 +127,7 @@ class UserController extends Controller
             return $e->getMessage();
         }
 
-        return redirect('admin/users');
+        return redirect('admin/users')->with('userUpdateStatus', 'User ' . $user->name . ' Updated!');
     }
 
     /**
@@ -137,7 +139,7 @@ class UserController extends Controller
     {
         $user->status = 0;
         $user->update();
-        return redirect('admin/users');
+        return redirect('admin/users')->with('userDeactivateStatus', 'User ' . $user->name . ' Deactivated!');
     }
 
     /**
@@ -149,6 +151,6 @@ class UserController extends Controller
     {
         $user->status = 1;
         $user->update();
-        return redirect('admin/users');
+        return redirect('admin/users')->with('userActivateStatus', 'User ' . $user->name . ' Activated!');
     }
 }

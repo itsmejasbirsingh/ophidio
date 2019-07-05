@@ -28,6 +28,7 @@ class ValidateUserUpdateRequest extends FormRequest
                 'username' => ['required', 'min:3', 'unique:users,name,' . $this->user->id],
                 'email' => ['required', 'email', 'unique:users,email,'. $this->user->id],
                 'password' => ['nullable', 'confirmed', 'min:6'],
+                'role' => ['required', 'integer'],
         ];
     }
 }

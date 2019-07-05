@@ -21,7 +21,6 @@
 
 	<section class="content">
                     <div class="row">
-
                     <div class="col-md-6">
                             <!-- general form elements disabled -->
                             <div class="box box-warning">
@@ -34,23 +33,23 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Username</label>
-                                            <input type="text" class="form-control {{ $errors->has('username') ? 'o-danger' : '' }}" name="username" placeholder="Enter user name" value="{{ old('username', @$user->name) }}">
+                                            <input type="text" class="form-control {{ $errors->has('username') ? 'o-danger' : '' }}" name="username" placeholder="Enter user name" value="{{ old('username') }}{{ ! empty( $user->name ) ? $user->name : '' }}">
                                             <span class="o-error">{{ $errors->has('username') ? $errors->first('username') : '' }}</span>
                                         </div>
 
                                         <div class="form-group">
                                             <label>First Name</label>
-                                            <input type="text" class="form-control" name="first_name" placeholder="Enter first name" value="{{ old('first_name', @$user->first_name) }}">
+                                            <input type="text" class="form-control" name="first_name" placeholder="Enter first name" value="{{ old('first_name') }}{{ ! empty( $user->first_name ) ? $user->first_name : '' }}">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Last Name</label>
-                                            <input type="text" class="form-control" name="last_name" placeholder="Enter last name" value="{{ old('last_name', @$user->last_name) }}">
+                                            <input type="text" class="form-control" name="last_name" placeholder="Enter last name" value="{{ old('last_name') }}{{ ! empty( $user->last_name ) ? $user->last_name : '' }}">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="text" class="form-control {{ $errors->has('email') ? 'o-danger' : '' }}" name="email" placeholder="Enter Email Address" value="{{ old('email', @$user->email) }}">
+                                            <input type="text" class="form-control {{ $errors->has('email') ? 'o-danger' : '' }}" name="email" placeholder="Enter Email Address" value="{{ old('email') }}{{ ! empty( $user->email ) ? $user->email : '' }}">
                                             <span class="o-error">{{ $errors->has('email') ? $errors->first('email') : '' }}</span>
                                         </div>
 
@@ -58,7 +57,7 @@
                                             <label>Role</label>
                                             <select class="form-control" name="role">
                                                 @foreach( $userRoles as $role )
-                                                    <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                    <option {{ ! empty( $user->role ) && $user->role === $role->id ? 'selected' : '' }}  value="{{ $role->id }}">{{ $role->role }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
