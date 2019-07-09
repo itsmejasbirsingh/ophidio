@@ -21,7 +21,7 @@
 
 	<section class="content">
                     <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                             <!-- general form elements disabled -->
                             <div class="box box-warning">
                                 <div class="box-header">
@@ -57,7 +57,7 @@
                                             <label>Role</label>
                                             <select class="form-control" name="role">
                                                 @foreach( $userRoles as $role )
-                                                    <option {{ ! empty( $user->role ) && $user->role === $role->id ? 'selected' : '' }}  value="{{ $role->id }}">{{ $role->role }}</option>
+                                                    <option {{ ! empty( old('role') ) && old('role') == $role->id ? 'selected' : '' }}{{ ! empty( $user->role ) && $user->role === $role->id ? 'selected' : '' }}  value="{{ $role->id }}">{{ $role->role }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

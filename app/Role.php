@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
-class UserRoles extends Model
+class Role extends Model
 {
 	/**
      * The attributes that are mass assignable.
@@ -26,8 +27,8 @@ class UserRoles extends Model
         $this->save();
     }
 
-    public function get()
+    public static function get()
     {
-    	return $this->all();
+        return static::all();
     }
 }

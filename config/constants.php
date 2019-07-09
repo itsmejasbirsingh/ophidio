@@ -1,4 +1,4 @@
 <?php
 return [
-	'NUMBER_OF_USERS' => 5
+	'NUMBER_OF_USERS' => 10
 ];

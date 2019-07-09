@@ -2,10 +2,10 @@
 
 namespace App;
 
+use App\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Foundation\Auth\UserRoles;
 
 class User extends Authenticatable
 {
@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'status', 'role', 'first_name', 'last_name',
+        'name', 'email', 'password', 'status', 'role_id', 'first_name', 'last_name',
     ];
 
     /**
@@ -39,6 +39,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get user role.
+     *
+     * @return array
+     */
+    public function role()
+    { 
+        return $this->hasOne(Role::class, 'id', 'role_id')->select('role');
+    }
+
+    /**
      * Store user.
      *
      * @param array
@@ -54,24 +64,23 @@ class User extends Authenticatable
      *
      * @param array
      */
-    public function list($params){
-
-        if ( ! empty( $params['search'] ) ) {
-
-            $users = $this->where('name','like', '%'. $params['search'] .'%' )->orWhere('email','like','%'. $params['search'] .'%')->paginate(config('constants.NUMBER_OF_USERS'));
-        }
-        else{
-
-            $users = $this->latest()->paginate(config('constants.NUMBER_OF_USERS'));
-        }
-
-        //dd($users);
-
-        $users_count = $this->count();
-
-        $users_inactive = $this->where('status', '=', 0)->count();
+    public static function list($params){
 
         $return = array();
+
+        $query = static::select('users.*', 'roles.role')->leftJoin('roles', 'users.role_id', 'roles.id');
+
+        // Searching.        
+        if ( ! empty( $params['search'] ) ) {
+
+            $query = $query->where('name','like', '%'. $params['search'] .'%' )->orWhere('email','like','%'. $params['search'] .'%');
+        }
+
+        $users = $query->latest('id')->paginate(config('constants.NUMBER_OF_USERS'));
+
+        $users_count = static::count();
+
+        $users_inactive = static::where('status', '=', 0)->count();
 
         $return['users'] = $users;
         $return['users_count'] = $users_count;

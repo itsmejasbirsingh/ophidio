@@ -30,11 +30,32 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
         <style type="text/css">
-        .o-danger{
-            border: 1px solid red;
+        .o-danger-border{
+            border: 2px solid red;
+        }
+        .o-success-border{
+            border: 2px solid #5cb85c;
         }
         .o-error{
             color: red;
+        }
+        .o-success{
+            color: #5cb85c;
+        }
+        .update-role-form{
+            display: none;
+        }
+        .update-role-form.active{
+            display: block;
+        }
+        .user-role{
+            display: none;
+        }
+        .user-role.active{
+            display: block;
+        }
+        .activate-deactivate-user-form{
+            display: inline-block;
         }
         </style>
     </head>
@@ -371,7 +392,108 @@
         <script src=" {{ asset( 'js/AdminLTE/app.js' ) }} " type="text/javascript"></script>
         
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src=" {{ asset( 'js/AdminLTE/dashboard.js' ) }} " type="text/javascript"></script>        
+        <script src=" {{ asset( 'js/AdminLTE/dashboard.js' ) }} " type="text/javascript"></script>       
 
     </body>
+    <script type="text/javascript">
+
+                // Make role editable.
+                jQuery('.user-row .edit-user, .user-role').on('click',function(){
+
+                    $('.update-role-form').removeClass('active');
+                    $('.user-role').addClass('active');
+
+                    $(this).closest('tr').find('.update-role-form').addClass('active');
+                    $(this).closest('tr').find('.user-role').removeClass('active');
+
+                    $(this).closest('tr').find('form input[name="role"]').focus();
+                })
+
+                // Cancel role upation.
+                jQuery('.role_update_cancel').on('click',function(){
+
+                    $(this).closest('tr').find('.update-role-form').removeClass('active');
+                    $(this).closest('tr').find('.user-role').addClass('active');
+                })
+
+                // Update role.
+                jQuery('.update-role-form').on('submit',function(e){
+
+                    var form = jQuery(this);
+
+                    var oldRole = form.closest('tr').find('.user-role').text();
+
+                    var updatedRole = form.find('input[name="role"]').val();
+
+                    if ( oldRole === updatedRole ) {
+
+                        form.closest('tr').find('.user-role').addClass('active');
+                        form.closest('tr').find('.update-role-form').removeClass('active');
+                        return false;
+                    }
+
+                    form.find('input[type="submit"]').attr('disabled','disabled').val("Updating...");
+
+                    form.find('.update-role-error').empty();
+
+                    jQuery.ajax({
+                        method: 'post',
+                        url: form.attr('action'),
+                        data: form.serialize(),
+                        success: function(response){
+                            
+                            form.find('input[type="submit"]').removeAttr('disabled').val("Update");
+
+                            var response = JSON.parse(response);
+                  
+                            if ( response.status === 1 ) {
+
+                                form.closest('tr').find('.user-role').addClass('active').text(response.role);
+                                form.closest('tr').find('.update-role-form').removeClass('active');
+                                form.closest('tr').find('.role-updated-at').text(response.updated_at);
+                                
+                            }
+                            else{
+                                form.find('.update-role-error').text(response.message);
+                            }
+                        },
+                        error: function(response) {
+
+                            var response = JSON.parse(response.responseText);
+
+                            var errors = [];
+
+                            if (typeof(response.errors) === 'string') {
+
+                                errors.push(response.errors);
+
+                              } else {
+
+                              $.each(response.errors, function(i, v) {
+
+                                  $.each(v, function(x, e) {
+                                      errors.push(e);
+                                  });
+                              });
+
+                            }
+
+                            if ( errors.length ) {
+                                
+                                form.find('.update-role-error').text(errors[0]);
+                                form.find('input[type="submit"]').removeAttr('disabled').val("Update");
+                            }
+
+                        }
+                    });
+
+                    e.preventDefault();
+                })
+
+                // Activate or deactivate user.
+                jQuery('.activate-deactivate-user').on('click',function(e){
+                    jQuery(this).closest('form').submit();
+                    e.preventDefault();
+                })
+    </script> 
 </html>

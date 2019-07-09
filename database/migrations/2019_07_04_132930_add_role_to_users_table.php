@@ -14,8 +14,8 @@ class AddRoleToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('role')->unsigned();
-            $table->foreign('role')->references('id')->on('user_roles')
+            $table->bigInteger('role_id')->unsigned();
+            $table->foreign('role_id')->references('id')->on('roles')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -27,9 +27,9 @@ class AddRoleToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::create('user_roles', function (Blueprint $table) {
-            $table->dropForeign('users_role_foreign');
-            $table->dropColumn('role');
+        Schema::create('roles', function (Blueprint $table) {
+            $table->dropForeign('users_role_id_foreign');
+            $table->dropColumn('role_id');
         });
     }
 }

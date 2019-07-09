@@ -11,11 +11,11 @@
 	    <!-- Content Header (Page header) -->
 	    <section class="content-header">
 	        <h1>
-	            {{ 'edit' === $activeLink ? 'Edit' : 'Add' }} User
+	            {{ 'edit' === $activeLink ? 'Edit' : 'Add' }} Role
 	        </h1>
 	        <ol class="breadcrumb">
 	            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-	            <li class="active">{{ 'edit' === $activeLink ? 'Edit' : 'Add' }} User</li>
+	            <li class="active">{{ 'edit' === $activeLink ? 'Edit' : 'Add' }} Role</li>
 	        </ol>
 	    </section>
 
@@ -32,7 +32,7 @@
                             <!-- general form elements disabled -->
                             <div class="box box-warning">
                                 <div class="box-header">
-                                    <h3 class="box-title">User Details</h3>
+                                    <h3 class="box-title">Role details</h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <form role="form" method="post" action="{{ route('saveRole') }}">
@@ -76,12 +76,22 @@
                                         @if($userRoles->count())
                                             <tbody role="alert" aria-live="polite" aria-relevant="all">
                                                 @foreach($userRoles as $key => $role)
-                                                    <tr>
+                                                    <tr class="user-row">
                                                         <td class="  sorting_1"> {{ ++$key }} </td>
-                                                        <td class="  sorting_1"> {{ $role->role }} </td>
-                                                        <td class=" "> {{ $role->updated_at }} </td>
+                                                        <td class="  sorting_1"> <span class="user-role active">{{ $role->role }}</span> 
+                                                            <div>
+                                                                <form method="post" class="update-role-form" action="{{ route('updateRole',$role->id) }}">
+                                                                    {!! csrf_field() !!}
+                                                                    <input type="text" name="role" value="{{ $role->role }}"> 
+                                                                    <input type="submit" value="Update">
+                                                                    <input type="button" class="role_update_cancel" value="Cancel">
+                                                                    <div class="o-error update-role-error"></div>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                        <td class="role-updated-at"> {{ $role->updated_at }} </td>
                                                         <td class="edit-user"> 
-                                                            <a href="#">Edit</a>
+                                                            <a href="#" class="edit-user">Edit</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -97,5 +107,5 @@
                        
                     </div>   <!-- /.row -->
                 </section>
-            </aside><!-- /.right-side -->    
+            </aside><!-- /.right-side -->   
 @stop	

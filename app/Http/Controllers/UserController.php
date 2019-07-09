@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\UserRoles;
+use App\Role;
 use Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
@@ -23,9 +23,7 @@ class UserController extends Controller
 
         $args['search'] = $request->input('s');
 
-        $user = new User();
-
-        $return = $user->list($args);
+        $return = User::list($args);
 
         return view('admin.list_users', 
                 [ 
@@ -45,15 +43,11 @@ class UserController extends Controller
      */
     public function add(){
 
-        $roles = new UserRoles();
-
-        $userRoles = $roles->get();
-
         return view('admin.add_user',
                 [  
                     'activeTab' => 'users', 
                     'activeLink' => 'add',
-                    'userRoles' => $userRoles 
+                    'userRoles' => Role::get() 
                 ] 
             );
     }
@@ -74,7 +68,7 @@ class UserController extends Controller
                 "last_name" => $request->input('last_name'),
                 "password" => bcrypt($request->input('password')),
                 "email" => $request->input('email'),
-                "role" => $request->input('role'),
+                "role_id" => $request->input('role'),
                 "status" => 1
             ]);
         } catch (Exception $e) {
@@ -93,16 +87,32 @@ class UserController extends Controller
      */
     public function edit(Request $request, User $user){
 
-        $roles = new UserRoles();
-
-        $userRoles = $roles->get();
-
         return view('admin.add_user',
                 [  
                     'activeTab' => 'users', 
                     'activeLink' => 'edit',
                     'user' => $user,
-                    'userRoles' => $userRoles  
+                    'userRoles' => Role::get()  
+                ] 
+            );
+    }
+
+    /**
+     * Render user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function view(Request $request, User $user){
+
+        // Get role.
+        //$role = Role::find($user->role_id)->role;
+
+        return view('admin.view_user',
+                [  
+                    'activeTab' => 'users', 
+                    'activeLink' => 'view',
+                    'user' => $user,
+                    'role' => $user->role,  
                 ] 
             );
     }
@@ -120,7 +130,7 @@ class UserController extends Controller
             $user->email = $request->input('email');
             $user->first_name = $request->input('first_name');
             $user->last_name = $request->input('last_name');
-            $user->role = $request->input('role');
+            $user->role_id = $request->input('role');
             $user->update();
 
         } catch (Exception $e) {
