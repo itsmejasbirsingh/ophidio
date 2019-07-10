@@ -18,6 +18,10 @@ Route::group([ 'middleware' => 'auth' ], function () {
 	    return view('admin.dashboard');
 	});
 
+	/*
+		* Users
+	*/
+
 	// Add user form.
 	Route::get('/admin/user/add/', 'UserController@add')->name('addUser');
 
@@ -42,6 +46,10 @@ Route::group([ 'middleware' => 'auth' ], function () {
 	// Activate user.
 	Route::post('/admin/user/{user}/activate', 'UserController@activate')->name('activateUser');
 
+	/*
+		* Roles
+	*/
+
 	// Add role form.
 	Route::get('/admin/role/add/', 'RoleController@add')->name('addRole');
 
@@ -50,6 +58,36 @@ Route::group([ 'middleware' => 'auth' ], function () {
 
 	// Update role.
 	Route::post('/admin/role/{role}/update', 'RoleController@update')->name('updateRole');
+
+	/*
+		* Products
+	*/
+
+	// get all Products.
+	Route::get('/admin/products/', 'ProductController@index')->name('listProducts');
+
+	// Add Product form.
+	Route::get('/admin/product/add', 'ProductController@add')->name('addProduct');
+
+	// Save product.
+	Route::post('/admin/product/add', 'ProductController@store')->name('saveProduct');
+
+	// Update product.
+	Route::post('/admin/product/{product}/update', 'ProductController@update')->name('updateProduct');
+
+	/*
+		* Product category
+	*/
+
+	// Add product category.
+	Route::get('/admin/product/category/add', 'ProductCategoryController@add')->name('addCategory');
+
+	// Save product category.
+	Route::post('/admin/product/category/add', 'ProductCategoryController@store')->name('saveCategory');
+
+	// Update product category.
+	Route::post('/admin/product/category/{product}/update', 'ProductCategoryController@store')->name('updateCategory');
+
 });
 
 Auth::routes(['register' => false]);

@@ -344,9 +344,23 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="{{ !empty($activeLink) && $activeLink === 'list' ? 'active' : '' }}"><a href="{{ route('listUsers') }}"><i class="fa fa-angle-double-right"></i> All Users</a></li>
+                                <li class="{{ !empty($activeLink) && $activeLink === 'list' ? 'active' : '' }}"><a href="{{ route('listUsers') }}"><i class="fa fa-angle-double-right"></i> Users</a></li>
                                 <li class="{{ !empty($activeLink) && $activeLink === 'add' ? 'active' : '' }}"><a href="{{ route('addUser') }}"><i class="fa fa-angle-double-right"></i> Add User</a></li>
                                 <li class="{{ !empty($activeLink) && $activeLink === 'addRole' ? 'active' : '' }}"><a href="{{ route('addRole') }}"><i class="fa fa-angle-double-right"></i> Add Role</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview {{ !empty($activeTab) && $activeTab === 'products' ? 'active' : '' }}">
+                            <a href="#">
+                                <i class="fa fa-product-hunt"></i>
+                                <span>Products</span>
+                                
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="{{ !empty($activeLink) && $activeLink === 'list' ? 'active' : '' }}"><a href="{{ route('listProducts') }}"><i class="fa fa-angle-double-right"></i> Products</a></li>
+                                <li class="{{ !empty($activeLink) && $activeLink === 'add' ? 'active' : '' }}"><a href="{{ route('addProduct') }}"><i class="fa fa-angle-double-right"></i> Add Product</a></li>
+                                <li class="{{ !empty($activeLink) && $activeLink === 'addCategory' ? 'active' : '' }}"><a href="{{ route('addCategory') }}"><i class="fa fa-angle-double-right"></i> Add Category</a></li>
+                                
                             </ul>
                         </li>
                     </ul>
