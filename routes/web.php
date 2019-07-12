@@ -14,12 +14,10 @@
 Route::group([ 'middleware' => 'auth' ], function () {
 
     // Render dashboard.
-	Route::get('/admin', function () {
-	    return view('admin.dashboard');
-	});
+	Route::view('/admin', 'admin.dashboard');
 
 	/*
-		* Users
+		Users
 	*/
 
 	// Add user form.
@@ -47,7 +45,7 @@ Route::group([ 'middleware' => 'auth' ], function () {
 	Route::post('/admin/user/{user}/activate', 'UserController@activate')->name('activateUser');
 
 	/*
-		* Roles
+		Roles
 	*/
 
 	// Add role form.
@@ -60,7 +58,7 @@ Route::group([ 'middleware' => 'auth' ], function () {
 	Route::post('/admin/role/{role}/update', 'RoleController@update')->name('updateRole');
 
 	/*
-		* Products
+		Products
 	*/
 
 	// get all Products.
@@ -76,7 +74,7 @@ Route::group([ 'middleware' => 'auth' ], function () {
 	Route::post('/admin/product/{product}/update', 'ProductController@update')->name('updateProduct');
 
 	/*
-		* Product category
+		Product category
 	*/
 
 	// Add product category.
@@ -93,3 +91,11 @@ Route::group([ 'middleware' => 'auth' ], function () {
 Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+/*
+	Public facing
+*/
+
+// Show products.
+Route::get('/', 'ShopController@index');

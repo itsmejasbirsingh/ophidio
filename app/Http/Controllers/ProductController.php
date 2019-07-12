@@ -1,21 +1,25 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
 use App\ProductCategory;
+
 use App\Product;
+
+use Auth;
 
 class ProductController extends Controller
 {
     public function index(){
 
-        $products = Product::latest('id')->paginate(config('constants.NUMBER_OF_USERS'));
+        $products = Product::latest('id')->paginate(config('constants.NUMBER_OF_PRODUCTS'));
 
     	return view('admin.list_products', [
     		'activeTab' => 'products',
-            'products' => $products
+            'products' => $products,
     	]);
 
     }
@@ -36,7 +40,9 @@ class ProductController extends Controller
 
         $request->validate([
             'title' => 'required',
-            'price' => 'required|integer'
+            'price' => 'required|integer',
+            'category' => 'required',
+            'featured_image' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:10000'
         ]);
 
         $product_name = $request->input('title');
@@ -51,7 +57,6 @@ class ProductController extends Controller
             $image->move($destinationPath, $featured_image_name);
 
         }
-        
 
         $product = new Product();
 
@@ -62,6 +67,7 @@ class ProductController extends Controller
             "featured_image" => $featured_image_name,
             "price" => $request->input('price'),
             "status" => 1,
+            "user_id" => Auth::id()
         ]);
 
         return back()->with('productAddStatus', 'Product ' .$product_name . ' added!');

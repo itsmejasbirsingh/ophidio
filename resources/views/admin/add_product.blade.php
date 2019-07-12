@@ -50,11 +50,15 @@
 
                                          <div class="form-group">
                                             <label>Category</label>
-                                            <select class="form-control" name="category">
+                                            <select class="form-control @error('category') o-danger-border @enderror" name="category">
+                                                <option value="">--SELECT CATEGORY--</option>
                                                 @foreach( $categories as $category )
                                                     <option {{ ! empty( old('category') ) && old('category') == $category->id ? 'selected' : '' }}  value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('category')
+                                                <span class="o-error">{{ $message }}</span>
+                                            @enderror   
                                         </div>
 
                                         <div class="form-group">
@@ -65,6 +69,9 @@
                                         <div class="form-group">
                                             <label>Featured image</label>
                                             <input type="file" name="featured_image">
+                                             @error('featured_image')
+                                                <span class="o-error">{{ $message }}</span>
+                                            @enderror 
                                         </div>
 
                                        

@@ -29,12 +29,14 @@
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <form role="form" method="post" action="{{ 'edit' === $activeLink ? route('updateUser', $user->id) : route('saveUser') }}">
-                                    {!! csrf_field() !!}
+                                    @csrf
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Username</label>
-                                            <input type="text" class="form-control {{ $errors->has('username') ? 'o-danger' : '' }}" name="username" placeholder="Enter user name" value="{{ old('username') }}{{ ! empty( $user->name ) ? $user->name : '' }}">
-                                            <span class="o-error">{{ $errors->has('username') ? $errors->first('username') : '' }}</span>
+                                            <input type="text" class="form-control @error('username') o-danger-border @enderror" name="username" placeholder="Enter user name" value="{{ old('username') }}{{ ! empty( $user->name ) ? $user->name : '' }}">
+                                            @error('username')
+                                                <span class="o-error">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group">
@@ -49,7 +51,7 @@
 
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="text" class="form-control {{ $errors->has('email') ? 'o-danger' : '' }}" name="email" placeholder="Enter Email Address" value="{{ old('email') }}{{ ! empty( $user->email ) ? $user->email : '' }}">
+                                            <input type="text" class="form-control {{ $errors->has('email') ? 'o-danger-border' : '' }}" name="email" placeholder="Enter Email Address" value="{{ old('email') }}{{ ! empty( $user->email ) ? $user->email : '' }}">
                                             <span class="o-error">{{ $errors->has('email') ? $errors->first('email') : '' }}</span>
                                         </div>
 
@@ -57,20 +59,20 @@
                                             <label>Role</label>
                                             <select class="form-control" name="role">
                                                 @foreach( $userRoles as $role )
-                                                    <option {{ ! empty( old('role') ) && old('role') == $role->id ? 'selected' : '' }}{{ ! empty( $user->role ) && $user->role === $role->id ? 'selected' : '' }}  value="{{ $role->id }}">{{ $role->role }}</option>
+                                                    <option {{ ! empty( old('role') ) && old('role') == $role->id ? 'selected' : '' }}{{ ! empty( $user->role_id ) && $user->role_id === $role->id ? 'selected' : '' }}  value="{{ $role->id }}">{{ $role->role }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
 
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input type="password" class="form-control {{ $errors->has('password') ? 'o-danger' : '' }}" name="password" placeholder="Enter Password">
+                                            <input type="password" class="form-control {{ $errors->has('password') ? 'o-danger-border' : '' }}" name="password" placeholder="Enter Password">
                                             <span class="o-error">{{ $errors->has('password') ? $errors->first('password') : '' }}</span>
                                         </div>
 
                                         <div class="form-group">
                                             <label>Confirm Password</label>
-                                            <input type="password" class="form-control {{ $errors->has('password') ? 'o-danger' : '' }}" name="password_confirmation" placeholder="Confirm Password">
+                                            <input type="password" class="form-control {{ $errors->has('password') ? 'o-danger-border' : '' }}" name="password_confirmation" placeholder="Confirm Password">
                                         </div>
                                         
                                         <div class="box-footer">

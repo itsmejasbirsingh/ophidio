@@ -93,7 +93,7 @@
                                                             <a href="{{route('editUser', $user->id)}}">Edit</a> | 
                                                             <a href="{{route('viewUser', $user->id)}}">View</a> |
                                                             <form class="activate-deactivate-user-form" method="post" action="{{ $user->status === 1 ? route('deactivateUser', $user->id) : route('activateUser', $user->id) }}">
-                                                                {!! csrf_field() !!}
+                                                                @csrf
                                                                 <a class="activate-deactivate-user {{ $user->status === 1 ? 'o-error' : 'o-success' }}" href="{{ $user->status === 1 ? route('deactivateUser', $user->id) : route('activateUser', $user->id) }}">{{ $user->status === 1 ? "Deactivate" : "Activate" }}</a>
                                                             </form> 
                                                         </td>

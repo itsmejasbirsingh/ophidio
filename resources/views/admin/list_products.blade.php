@@ -37,6 +37,7 @@
                                             <tr role="row">
                                                 <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 50px;">Sno</th>
                                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Name</th>
+                                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 200px;">Featured image</th>
                                                
                                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 100px;">Status</th>
                                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 171px;">Updated at</th>
@@ -48,6 +49,7 @@
                                             <tr>
                                                 <th rowspan="1" colspan="1">Sno</th>
                                                 <th rowspan="1" colspan="1">Name</th>
+                                                <th rowspan="1" colspan="1">Featured Image</th>
                                                 <th rowspan="1" colspan="1">Status</th>
                                                 <th rowspan="1" colspan="1">Updated at</th>
                                                
@@ -55,19 +57,19 @@
                                         </tfoot>
                                         @if($products->count())
                                             <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                                @foreach($products as $key => $user)
+                                                @foreach($products as $key => $product)
                                                     <tr>
                                                         <td class="  sorting_1"> {{ ++$key }} </td>
-                                                        <td class="  sorting_1"> {{ $user->title }} </td>
-
-                                                        <td class=" "> {{ 1 === $user->status ? 'Active' : 'Inactive' }} </td>
-                                                        <td class=" "> {{ $user->updated_at }} </td>
+                                                        <td class="  sorting_1"> {{ $product->title }} </td>
+                                                        <td class=""> <img width="50px" src="{{ asset('/img/products/'.$product->featured_image) }}"> </td>
+                                                        <td class=" "> {{ 1 === $product->status ? 'Active' : 'Inactive' }} </td>
+                                                        <td class=" "> {{ $product->updated_at }} </td>
                                                         
                                                     </tr>
                                                 @endforeach
                                             
                                             @else
-                                                <tr> <td></td><td></td><td> No product found! </td><td></td><td></td><td></td> </tr>
+                                                <tr> <td></td><td></td><td> No product found! </td><td></td><td></td> </tr>
                                             </tbody>    
                                         @endif
                                     

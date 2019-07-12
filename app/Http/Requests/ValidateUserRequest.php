@@ -24,7 +24,7 @@ class ValidateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => ['required', 'min:3', 'unique:users,name', 'alpha'],
+            'username' => ['required', 'min:3', 'unique:users,name', 'alpha_num'],
             'email' => ['required', 'email', 'unique:users'], // unique:table_name
             'password' => ['required', 'confirmed', 'min:6'],
             'role' => ['required', 'integer'],
