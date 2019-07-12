@@ -98,4 +98,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 */
 
 // Show products.
-Route::get('/', 'ShopController@index');
+Route::get('/', 'ShopController@index')->name('shopping');
+
+Route::get('/product/{product}', 'ShopController@productSingle')->name('product_single');
+
+Route::get('/cart', 'CartController@index');
+
+Route::post('/cart/add', 'CartController@store')->name('saveCart');
+
+Route::patch('/cart/{item_id}/update', 'CartController@update');
+
+Route::post('/cart/empty', 'CartController@empty')->name('emptyCart');
+
+Route::post('/cart/remove/{item_id}', 'CartController@destroy')->name('cartRemoveItem');

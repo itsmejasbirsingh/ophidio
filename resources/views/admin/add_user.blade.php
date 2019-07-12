@@ -21,7 +21,7 @@
 
 	<section class="content">
                     <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                             <!-- general form elements disabled -->
                             <div class="box box-warning">
                                 <div class="box-header">

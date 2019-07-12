@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8" />
     <meta name="keywords" content="Baggage Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -39,7 +40,7 @@
                 <!-- nav -->
                 <div class="top-w3pvt d-flex">
                     <div id="logo">
-                        <h1> <a href="index.html"><span class="log-w3pvt">O</span>phidio</a> </h1>
+                        <h1> <a href="/"><span class="log-w3pvt">O</span>phidio</a> </h1>
                     </div>
 
                     
@@ -49,9 +50,9 @@
                         <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
                         <input type="checkbox" id="drop" />
                         <ul class="menu">
-                            <li class="active"><a href="index.html">Home</a></li>
-                            <li><a href="shop.html">Cart</a></li>
-                            <li><a href="contact.html">Checkout</a></li>
+                            <li class="active"><a href="/">Home</a></li>
+                            <li><a href="/cart">Cart</a><span class="cart-count">{{ App\Http\Controllers\CartController::getCartCount() }}</span></li>
+                            <li><a href="/chekcout">Checkout</a></li>
                         </ul>
                     </nav>
                     <!-- //nav -->
@@ -67,7 +68,7 @@
 
 @yield('content')
    
-    <div class="footer_agileinfo_topf py-5" >
+    <div class="footer_agileinfo_topf py-5 footer">
         <div class="container py-md-5">
             <div class="row">
                 <div class="col-lg-3 footer_wthree_gridf mt-lg-5">
@@ -133,22 +134,31 @@
     </div>
     <!-- //footer -->
 
-    <!-- copyright -->
-    
-    <!-- //copyright -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 
 </body>
 
 </html>
 
-
+@yield('extra-js')
 
 <style type="text/css">
-	.products{
-		list-style-type: none;
-	}
-	.products li{
-		float: left;
-		padding: 50px;
-	}
+	.footer{
+         clear: both;
+    position: relative;
+    height: 200px;
+    margin-top: 200px;
+    }
+    .cart-count{
+        color: red !important;
+        font-size: 30px;
+        margin-left: -10px;
+        border-radius: 50%;
+        background: #fff;
+        padding: 10px;
+    }
+
+    .container.content{
+        padding: 100px
+    }
 </style>
