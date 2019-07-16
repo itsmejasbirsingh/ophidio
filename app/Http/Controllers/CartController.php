@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+
 use \Cart as Cart;
+
 use Validator;
 
 class CartController extends Controller
@@ -18,6 +21,7 @@ class CartController extends Controller
      */
     public function index()
     {
+        Cart::setGlobalTax(1); // Tax 1%
         return view('public.cart');
     }
 
@@ -65,20 +69,6 @@ class CartController extends Controller
 
         return response()->json(['success' => true]);
 
-    }
-
-    public static function getCartCount()
-    {
-        $items = 0;
-
-        if ( ! empty( Cart::content() ) ) {
-
-            foreach (Cart::content() as $item) {
-                
-                $items += $item->qty;
-            }
-        }
-        return $items;
     }
 
     /**

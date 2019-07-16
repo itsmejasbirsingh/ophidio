@@ -97,7 +97,7 @@
             </table>
 
             <a href="{{ route('shopping') }}" class="btn btn-primary btn-lg">Continue Shopping</a> &nbsp;
-            <a href="#" class="btn btn-success btn-lg">Proceed to Checkout</a>
+            <a href="{{ route('checkout') }}" class="btn btn-success btn-lg">Proceed to Checkout</a>
 
             <div style="float:right">
                 <form action="{{ route('emptyCart') }}" method="POST">

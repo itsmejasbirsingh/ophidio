@@ -131,6 +131,8 @@ class UserController extends Controller
             $user->first_name = $request->input('first_name');
             $user->last_name = $request->input('last_name');
             $user->role_id = $request->input('role');
+            $user->password = bcrypt($request->input('password'));
+            $user->touch();
             $user->update();
 
         } catch (Exception $e) {

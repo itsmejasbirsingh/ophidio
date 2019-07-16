@@ -102,7 +102,7 @@ Route::get('/', 'ShopController@index')->name('shopping');
 
 Route::get('/product/{product}', 'ShopController@productSingle')->name('product_single');
 
-Route::get('/cart', 'CartController@index');
+Route::get('/cart', 'CartController@index')->name('cart');
 
 Route::post('/cart/add', 'CartController@store')->name('saveCart');
 
@@ -111,3 +111,9 @@ Route::patch('/cart/{item_id}/update', 'CartController@update');
 Route::post('/cart/empty', 'CartController@empty')->name('emptyCart');
 
 Route::post('/cart/remove/{item_id}', 'CartController@destroy')->name('cartRemoveItem');
+
+Route::get('/checkout', 'CheckoutController@index')->name('checkout')->middleware('auth');
+
+Route::post('/order', 'CheckoutController@order')->name('order')->middleware('auth');
+
+Route::view('/order/{order}/recieved', 'public.order_recieved')->name('orderRecieved');

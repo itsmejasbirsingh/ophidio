@@ -51,8 +51,8 @@
                         <input type="checkbox" id="drop" />
                         <ul class="menu">
                             <li class="active"><a href="/">Home</a></li>
-                            <li><a href="/cart">Cart</a><span class="cart-count">{{ App\Http\Controllers\CartController::getCartCount() }}</span></li>
-                            <li><a href="/chekcout">Checkout</a></li>
+                            <li><a href="/cart">Cart</a><span class="cart-count">{{ Cart::count() }}</span></li>
+                            <li><a href="{{ route('checkout') }}">Checkout</a></li>
                         </ul>
                     </nav>
                     <!-- //nav -->
@@ -144,10 +144,10 @@
 
 <style type="text/css">
 	.footer{
-         clear: both;
-    position: relative;
-    height: 200px;
-    margin-top: 200px;
+        clear: both;
+        position: relative;
+        height: 200px;
+        margin-top: 200px;
     }
     .cart-count{
         color: red !important;

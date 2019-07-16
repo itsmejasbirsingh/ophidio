@@ -70,6 +70,6 @@ class ProductController extends Controller
             "user_id" => Auth::id()
         ]);
 
-        return back()->with('productAddStatus', 'Product ' .$product_name . ' added!');
+        return back()->with('productAddStatus', 'Product ' . $product_name . ' added!');
     }
 }
