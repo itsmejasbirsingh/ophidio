@@ -36,7 +36,7 @@
                                         <label>Email: </label> {{ $user->email }}
                                     </p>
                                     <p>
-                                        <label>Role: </label> {{ $role->role }}
+                                        <label>Role: </label> {{ $user->roles->role }}
                                     </p>
                                     <p>
                                         <form method="post" action="{{ $user->status === 1 ? route('deactivateUser', $user->id) : route('activateUser', $user->id) }}">

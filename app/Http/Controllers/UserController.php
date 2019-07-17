@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Role;
+
+use App\Models\User;
+
+use App\Models\Role;
+
 use Validator;
+
 use Illuminate\Validation\Rule;
+
 use Illuminate\Http\Request;
+
 use App\Http\Requests\ValidateUserRequest;
+
 use App\Http\Requests\ValidateUserUpdateRequest;
+
 
 class UserController extends Controller
 {
@@ -111,8 +119,7 @@ class UserController extends Controller
                 [  
                     'activeTab' => 'users', 
                     'activeLink' => 'view',
-                    'user' => $user,
-                    'role' => $user->role,  
+                    'user' => $user,  
                 ] 
             );
     }
@@ -165,4 +172,5 @@ class UserController extends Controller
         $user->update();
         return redirect('admin/users')->with('userActivateStatus', 'User ' . $user->name . ' Activated!');
     }
+
 }

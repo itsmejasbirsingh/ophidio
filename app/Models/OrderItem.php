@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class OrderItem extends Model
 {
-    protected $fillable = ['user_id', 'amount', 'address_id'];
+    protected $fillable = ['item', 'amount', 'order_id', 'quantity'];
 
     public function store($params)
     {

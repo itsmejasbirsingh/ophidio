@@ -1,11 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Role;
+
+use App\Models\Role;
+
 use Illuminate\Notifications\Notifiable;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
+use Auth;
+
 
 class User extends Authenticatable
 {
@@ -39,11 +46,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get user role.
+     * Get user role in view user.
      *
      * @return array
      */
-    public function role()
+    public function roles()
     { 
         return $this->hasOne(Role::class, 'id', 'role_id')->select('role');
     }
@@ -87,5 +94,11 @@ class User extends Authenticatable
         $return['inactive_users'] = $users_inactive;
 
         return $return;
+    }
+
+    public static function isAdmin()
+    {
+        return static::select('users.id', 'roles.role')->leftJoin('roles', 'users.role_id', 'roles.id')->where('roles.role', 'administrator')->where('users.id', Auth::id() )->count();
+
     }
 }

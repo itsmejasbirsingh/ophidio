@@ -8,6 +8,11 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                @if (session('error_message'))
+                    <div class="alert alert-danger">
+                        {{ session('error_message') }}
+                    </div>
+                @endif
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -15,7 +20,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Username/Email">
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Username/Email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">

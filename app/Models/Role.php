@@ -1,9 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\User;
+
+use App\Models\User;
+
 use Illuminate\Database\Eloquent\Model;
+
 
 class Role extends Model
 {
@@ -31,4 +34,5 @@ class Role extends Model
     {
         return static::all();
     }
+
 }

@@ -11,7 +11,7 @@
 |
 */
 
-Route::group([ 'middleware' => 'auth' ], function () {
+Route::group([ 'middleware' => [ 'auth', 'admin' ] ], function () {
 
     // Render dashboard.
 	Route::view('/admin', 'admin.dashboard');
@@ -67,6 +67,12 @@ Route::group([ 'middleware' => 'auth' ], function () {
 	// Add Product form.
 	Route::get('/admin/product/add', 'ProductController@add')->name('addProduct');
 
+	// Edit Product form.
+	Route::get('/admin/product/{product}/edit', 'ProductController@edit')->name('editProduct');
+
+	// Update Product.
+	Route::get('/admin/product/{product}/update', 'ProductController@update')->name('updateProduct');
+
 	// Save product.
 	Route::post('/admin/product/add', 'ProductController@store')->name('saveProduct');
 
@@ -86,11 +92,17 @@ Route::group([ 'middleware' => 'auth' ], function () {
 	// Update product category.
 	Route::post('/admin/product/category/{product}/update', 'ProductCategoryController@store')->name('updateCategory');
 
+	// get orders.
+	Route::get('/admin/orders', 'OrderController@index')->name('ordersList');
+
+	// get order.
+	Route::get('/admin/order/{order}', 'OrderController@view')->name('ordersView');
+
 });
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware(['auth', 'admin']);
 
 
 /*
@@ -116,4 +128,4 @@ Route::get('/checkout', 'CheckoutController@index')->name('checkout')->middlewar
 
 Route::post('/order', 'CheckoutController@order')->name('order')->middleware('auth');
 
-Route::view('/order/{order}/recieved', 'public.order_recieved')->name('orderRecieved');
+Route::view('/order/{order}/recieved', 'order_recieved')->name('orderRecieved');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Product;
+use App\Models\Product;
 
 use Illuminate\Http\Request;
 
@@ -18,7 +18,7 @@ class ShopController extends Controller
     {
         $products = Product::where('status', 1)->latest('id')->get();
 
-        return view('public.shop')->with('products', $products);
+        return view('shop')->with('products', $products);
     }
 
     /**
@@ -30,6 +30,6 @@ class ShopController extends Controller
     {
         $product = Product::where('title', $product)->first();
 
-        return view('public.product_single')->with('product', $product);
+        return view('product_single')->with('product', $product);
     }
 }

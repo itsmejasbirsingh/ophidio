@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Address;
+use App\Models\Address;
 
-use App\Order;
+use App\Models\Order;
 
-use App\OrderItem;
+use App\Models\OrderItem;
 
 use App\Http\Requests\ValidateCheckoutRequest;
 
@@ -24,7 +24,7 @@ class CheckoutController extends Controller
     	if ( ! Cart::count() ) {
     		return redirect()->route('cart');
     	}
-    	return view('public.checkout');
+    	return view('checkout');
     }
 
     public function order(ValidateCheckoutRequest $request)

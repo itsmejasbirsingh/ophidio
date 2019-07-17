@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         //$this->call([RolesTableSeeder::class]);
 
-        //factory(App\User::class,50)->create();
+        //factory(App\Models\User::class,50)->create();
     }
 }

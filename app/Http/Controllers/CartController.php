@@ -22,7 +22,7 @@ class CartController extends Controller
     public function index()
     {
         Cart::setGlobalTax(1); // Tax 1%
-        return view('public.cart');
+        return view('cart');
     }
 
     /**
@@ -41,7 +41,8 @@ class CartController extends Controller
             //return redirect('cart')->withSuccessMessage('Item is already in your cart!');
         }
 
-        Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Product');
+        Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Models\Product');
+        
         return redirect('cart')->withSuccessMessage($request->name . ' added to your cart!');
     }
 

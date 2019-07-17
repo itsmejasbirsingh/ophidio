@@ -1,4 +1,4 @@
-@extends('public.master')
+@extends('master')
 
 @section('content')
 	@if($products->count())
@@ -6,13 +6,13 @@
 	    @foreach($products as $product)
 <form method="post" action="{{ route('saveCart') }}">
 @csrf
-	<div class="col-sm-4 product">
+	<div class="col-sm-3 product">
     	<a href="{{ route('product_single', $product->title ) }}">
     		<h2>{{ $product->title }}</h2>
-	    	<div><img  src="{{ asset('/img/products/'.$product->featured_image) }}"></div>
+	    	<div><img src="{{ asset('/img/products/'.$product->featured_image) }}"></div>
     	</a>
 	    <div><b>{{ $product->price }}</b></div>
-	    <div><button class="add-to-cart-bttn">Add to cart</button></div>
+	    <div><button class="add-to-cart-bttn btn btn-primary">Add to cart</button></div>
     </div>
     <input type="hidden" name="id" value="{{ $product->id }}">
     <input type="hidden" name="name" value="{{ $product->title }}">

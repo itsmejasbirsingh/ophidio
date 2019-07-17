@@ -350,6 +350,16 @@
                                 
                             </ul>
                         </li>
+                        <li class="treeview {{ !empty($activeTab) && $activeTab === 'orders' ? 'active' : '' }}">
+                            <a href="#">
+                                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                                <span>Orders</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="{{ !empty($activeLink) && $activeLink === 'ordersList' ? 'active' : '' }}"><a href="{{ route('ordersList') }}"><i class="fa fa-angle-double-right"></i> Orders</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

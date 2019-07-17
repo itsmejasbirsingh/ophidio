@@ -1,9 +1,9 @@
-@extends('public.master')
+@extends('master')
 
 @section('content')
 
     <div class="container content">
-        <p><a href="{{ url('shop') }}">Home</a> / Cart</p>
+        
         <h1>Cart</h1>
 
         <hr>
@@ -21,7 +21,7 @@
         @endif
 
         @if (sizeof(Cart::content()) > 0)
-
+        
             <table class="table">
                 <thead>
                     <tr>

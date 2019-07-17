@@ -26,6 +26,12 @@
                             {{ session('productAddStatus') }}
                         </div>
                     @endif
+
+                    @if (session('productUpdateStatus'))
+                        <div class="alert alert-success">
+                            {{ session('productUpdateStatus') }}
+                        </div>
+                    @endif
                     <div class="col-md-6">
                             <!-- general form elements disabled -->
                             <div class="box box-warning">
@@ -38,13 +44,13 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Product name</label>
-                                            <input type="text" class="form-control {{ $errors->has('title') ? 'o-danger-border' : '' }}" name="title" placeholder="Enter product title" value="{{ old('title') }}">
+                                            <input type="text" class="form-control {{ $errors->has('title') ? 'o-danger-border' : '' }}" name="title" placeholder="Enter product title" value="{{ old('title') }}{{ ! empty($product->title) ? $product->title : '' }}">
                                             <span class="o-error">{{ $errors->has('title') ? $errors->first('title') : '' }}</span>
                                         </div>
 
                                         <div class="form-group">
                                             <label>Product description</label>
-                                            <textarea type="text" class="form-control {{ $errors->has('description') ? 'o-danger' : '' }}" name="description" placeholder="Enter product description">{{ old('description') }}</textarea>
+                                            <textarea type="text" class="form-control {{ $errors->has('description') ? 'o-danger' : '' }}" name="description" placeholder="Enter product description">{{ old('description') }}{{ ! empty($product->description) ? $product->description : '' }}</textarea>
                                             <span class="o-error">{{ $errors->has('username') ? $errors->first('username') : '' }}</span>
                                         </div>
 
@@ -53,7 +59,7 @@
                                             <select class="form-control @error('category') o-danger-border @enderror" name="category">
                                                 <option value="">--SELECT CATEGORY--</option>
                                                 @foreach( $categories as $category )
-                                                    <option {{ ! empty( old('category') ) && old('category') == $category->id ? 'selected' : '' }}  value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    <option {{ ! empty( old('category') ) && old('category') == $category->id ? 'selected' : ! empty($product->category_id) && $product->category_id == $category->id ? 'selected' : '' }}  value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
                                             @error('category')
@@ -63,19 +69,29 @@
 
                                         <div class="form-group">
                                             <label>Price</label>
-                                            <input type="text" class="form-control {{ $errors->has('price') ? 'o-danger-border' : '' }}" name="price" placeholder="Enter product price" value="{{ old('price') }}">
+                                            <input type="text" class="form-control {{ $errors->has('price') ? 'o-danger-border' : '' }}" name="price" placeholder="Enter product price" value="{{ old('price') }}{{ ! empty($product->price) ? $product->price : '' }}">
                                         </div>
 
                                         <div class="form-group">
                                             <label>Featured image</label>
                                             <input type="file" name="featured_image">
-                                             @error('featured_image')
-                                                <span class="o-error">{{ $message }}</span>
-                                            @enderror 
+
+                                               @if($activeLink === 'edit')
+                                               <div>
+                                                   <img width="100px" src="{{ asset('/img/products/'.$product->featured_image) }}">
+                                               </div>
+                                                @error('featured_image')
+                                                    <span class="o-error">{{ $message }}</span>
+                                                @enderror 
+                                               <div>
+                                               <label>Activate product</label>
+                                                   <input type="checkbox" name="is_active" {{ $product->status === 1 ? 'checked' : '' }} >
+                                               </div>
+                                               @endif 
+
+                                            
                                         </div>
 
-                                       
-                                        
                                         <div class="box-footer">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
