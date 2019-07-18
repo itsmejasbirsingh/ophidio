@@ -31,7 +31,7 @@ class UserController extends Controller
 
         $args['search'] = $request->input('s');
 
-        $return = User::list($args);
+        $return = User::showAll($args);
 
         return view('admin.list_users', 
                 [ 

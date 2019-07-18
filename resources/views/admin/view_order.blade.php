@@ -16,7 +16,7 @@
                             <!-- general form elements disabled -->
                             <div class="box box-warning">
                                 <div class="box-header">
-                                    <h3 class="box-title">User Details</h3>
+                                    <h3 class="box-title">Order Details</h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <p>

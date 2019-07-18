@@ -71,7 +71,7 @@ class User extends Authenticatable
      *
      * @param array
      */
-    public static function list($params){
+    public static function showAll($params){
 
         $return = array();
 

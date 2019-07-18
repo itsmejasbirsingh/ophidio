@@ -64,7 +64,7 @@
                                                         <td class="  sorting_1"> {{ ++$key }} </td>
                                                         <td class="  sorting_1"> {{ $order->name }} </td>
                                                         <td class="  sorting_1"> {{ $order->amount }} </td>
-                                                        <td class="  sorting_1"> {{ $order->status }} </td>
+                                                        <td class="  sorting_1"> {!! $order->status ? '<span class="btn btn-success">Completed</span>' : '<span class="btn btn-danger">Processing</span>' !!} </td>
                                                         <td class="  sorting_1"> {{ $order->created_at }} </td>
                                                         <td class="  sorting_1"> 
                                                         <a href="{{ route('ordersView', $order->id) }}">View</a>
