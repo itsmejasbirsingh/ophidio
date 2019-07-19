@@ -55,6 +55,51 @@
                             <li><a href="{{ route('checkout') }}">Checkout</a></li>
                         </ul>
                     </nav>
+                    <nav class="user-login-nav">
+                        <ul>
+                        @if( Auth::check() )
+
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    <span>Hi, {{ Auth::user()->name }} <i class="caret"></i></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div>
+                                            <a href="{{ route('userProfile') }}" class="btn btn-default btn-flat">Profile</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="user-footer">
+                                        <div>
+                                            <a href="{{ route('userOrders') }}" class="btn btn-default btn-flat">My orders</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="user-footer"> 
+                                        <div>
+                                            <form method="post" action="{{ route('logout') }}">
+                                            {{ csrf_field() }}
+                                                <input type="submit" value="Sign out" class="btn btn-danger">
+                                            </form>
+                                        </div>   
+                                    </li>
+                                </ul>
+                            </li>
+
+                        @else
+                        
+                        <li>
+                            <a href="{{ route('checkout') }}">Login</a>
+                        </li>    
+
+                        @endif
+                            
+                        </ul>
+                    </nav>
                     <!-- //nav -->
                     
                     <div class="clearfix"></div>
@@ -160,5 +205,9 @@
 
     .container.content{
         padding: 100px
+    }
+
+    .user-login-nav{
+        float: right;
     }
 </style>

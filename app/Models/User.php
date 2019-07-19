@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'status', 'role_id', 'first_name', 'last_name',
+        'name', 'email', 'password', 'status', 'role_id', 'first_name', 'last_name', 'mobile',
     ];
 
     /**
@@ -100,5 +100,23 @@ class User extends Authenticatable
     {
         return static::select('users.id', 'roles.role')->leftJoin('roles', 'users.role_id', 'roles.id')->where('roles.role', 'administrator')->where('users.id', Auth::id() )->count();
 
+    }
+
+    public function fullAddress()
+    {
+        return $this->hasOne(Address::class)
+            ->select('address', 'city', 'state', 'pincode')
+            ->latest();
+    }
+
+    public static function addProfile($params)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+
+        $user->first_name = $params['first_name'];
+        $user->last_name = $params['last_name'];
+        $user->mobile = $params['mobile'];
+        $user->touch();
+        $user->update();
     }
 }

@@ -23,9 +23,8 @@ class Admin
             
             return $next($request);
         }
-        else{
-            Auth::logout();
-        }
+
+        Auth::logout();
 
         return redirect('/login')->withErrorMessage('Only administratrators can access the dashboard!');
         

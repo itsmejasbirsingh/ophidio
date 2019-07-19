@@ -129,3 +129,9 @@ Route::get('/checkout', 'CheckoutController@index')->name('checkout')->middlewar
 Route::post('/order', 'CheckoutController@order')->name('order')->middleware('auth');
 
 Route::view('/order/{order}/recieved', 'order_recieved')->name('orderRecieved');
+
+Route::get('/profile', 'ProfileController@index')->name('userProfile')->middleware('auth');
+
+Route::post('/profile', 'ProfileController@save')->name('saveUserProfile')->middleware('auth');
+
+Route::get('/orders', 'OrderController@userOrders')->name('userOrders')->middleware('auth');

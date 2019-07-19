@@ -24,4 +24,9 @@ class OrderController extends Controller
 
     	return view('admin.view_order')->with(['order' => $order, 'activeTab' => 'orders' ]);
     }
+
+    public function userOrders(Request $request)
+    {
+    	return view('user_orders')->with(['orders' => Order::getOrders()]);
+    }
 }

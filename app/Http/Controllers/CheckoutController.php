@@ -59,6 +59,7 @@ class CheckoutController extends Controller
             $orderItem->store([
                 'order_id' => $order->id,
                 'item' => $item->name,
+                'item_id' =>$item->id,
                 'amount' => $item->subtotal,
                 'quantity' => $item->qty
             ]);

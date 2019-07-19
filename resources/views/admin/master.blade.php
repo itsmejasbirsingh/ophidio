@@ -282,7 +282,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" class="btn btn-default btn-flat">My Profile</a>
                                     </div>
                                     <form method="post" action="{{ route('logout') }}">
                                     {{ csrf_field() }}
