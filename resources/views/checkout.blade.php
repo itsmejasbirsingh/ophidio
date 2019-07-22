@@ -13,7 +13,23 @@
 
 <form method="post" action="{{ route('order') }}">
 	@csrf
-<div class="col-sm-6">
+
+<div class="col-sm-2">
+	@if( Auth::user()->allAddresses->count() )
+	<h4>Saved addresses</h4>
+	<ul class="list-group saved-addresses">
+		@foreach( Auth::user()->allAddresses as $address )
+			<li class="list-group-item address">
+				<span class="body">{{ $address->address }}</span>
+				<span class="state">{{ $address->state }}</span>
+				<span class="city">{{ $address->city }}</span>
+				<span class="pincode">{{ $address->pincode }}</span>
+			</li>
+		@endforeach
+	</ul>
+	@endif
+</div>	
+<div class="col-sm-5">
 	<h3>BILLING DETAILS</h3>
 
 	<div>
@@ -67,7 +83,7 @@
 	
 	
 </div>
-<div class="col-sm-6">
+<div class="col-sm-5">
 	<h3>Your order</h3>
 
 	@if (sizeof(Cart::content()) > 0)

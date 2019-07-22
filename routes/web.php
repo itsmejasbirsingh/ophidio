@@ -135,3 +135,8 @@ Route::get('/profile', 'ProfileController@index')->name('userProfile')->middlewa
 Route::post('/profile', 'ProfileController@save')->name('saveUserProfile')->middleware('auth');
 
 Route::get('/orders', 'OrderController@userOrders')->name('userOrders')->middleware('auth');
+
+// Facebook login routes.
+
+Route::get('/redirect', 'SocialAuthFacebookController@redirect');
+Route::get('/callback', 'SocialAuthFacebookController@callback');

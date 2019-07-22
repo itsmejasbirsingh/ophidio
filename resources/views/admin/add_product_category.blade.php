@@ -11,11 +11,11 @@
 	    <!-- Content Header (Page header) -->
 	    <section class="content-header">
 	        <h1>
-	            {{ 'edit' === $activeLink ? 'Edit' : 'Add' }} Role
+	            {{ 'edit' === $activeLink ? 'Edit' : 'Add' }} Product category
 	        </h1>
 	        <ol class="breadcrumb">
 	            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-	            <li class="active">{{ 'edit' === $activeLink ? 'Edit' : 'Add' }} Role</li>
+	            <li class="active">{{ 'edit' === $activeLink ? 'Edit' : 'Add' }} Product Category</li>
 	        </ol>
 	    </section>
 

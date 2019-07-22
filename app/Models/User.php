@@ -87,7 +87,7 @@ class User extends Authenticatable
 
         $users_count = static::count();
 
-        $users_inactive = static::where('status', '=', 0)->count();
+        $users_inactive = static::where('status', 0)->count();
 
         $return['users'] = $users;
         $return['users_count'] = $users_count;
@@ -96,12 +96,22 @@ class User extends Authenticatable
         return $return;
     }
 
+    /**
+     * Check if user is admin.
+     *
+     * @return array
+     */
     public static function isAdmin()
     {
         return static::select('users.id', 'roles.role')->leftJoin('roles', 'users.role_id', 'roles.id')->where('roles.role', 'administrator')->where('users.id', Auth::id() )->count();
 
     }
 
+    /**
+     * Get users latest address.
+     *
+     * @return array
+     */
     public function fullAddress()
     {
         return $this->hasOne(Address::class)
@@ -109,14 +119,34 @@ class User extends Authenticatable
             ->latest();
     }
 
+    /**
+     * Get users all saved addresses.
+     *
+     * @return array
+     */
+    public function allAddresses()
+    {
+        return $this->hasMany(Address::class)
+            ->select('address', 'city', 'state', 'pincode');
+    }
+
+    /**
+     * Add user profile.
+     *
+     * @return array
+     */
     public static function addProfile($params)
     {
-        $user = User::findOrFail(Auth::user()->id);
+        try {
+            $user = User::findOrFail(Auth::user()->id);
 
-        $user->first_name = $params['first_name'];
-        $user->last_name = $params['last_name'];
-        $user->mobile = $params['mobile'];
-        $user->touch();
-        $user->update();
+            $user->first_name = $params['first_name'];
+            $user->last_name = $params['last_name'];
+            $user->mobile = $params['mobile'];
+            $user->touch();
+            $user->update();
+        } catch (Exception $e) {
+            
+        }
     }
 }

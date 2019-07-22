@@ -29,7 +29,7 @@
 			</div>
 			<div>
 				<label>Address</label>
-				<textarea type="text" name="address" class="form-control">{{ old('address', Auth::user()->fullAddress->address) }}</textarea>
+				<textarea type="text" name="address" class="form-control">{{ old('address', Auth::user()->fullAddress->count() ? Auth::user()->fullAddress->address : '' ) }}</textarea>
 			</div>
 		</div>
 		<div class="col-sm-6">
@@ -39,15 +39,15 @@
 			</div>
 			<div>
 				<label>City</label>
-				<input type="text" name="city" class="form-control" value="{{ old('city', Auth::user()->fullAddress->city) }}">
+				<input type="text" name="city" class="form-control" value="{{ old('city', Auth::user()->fullAddress ? Auth::user()->fullAddress->city : '') }}">
 			</div>
 			<div>
 				<label>State</label>
-				<input type="text" name="state" class="form-control" value="{{ old('state', Auth::user()->fullAddress->state) }}">
+				<input type="text" name="state" class="form-control" value="{{ old('state', Auth::user()->fullAddress ? Auth::user()->fullAddress->state : '') }}">
 			</div>
 			<div>
 				<label>Pincode</label>
-				<input type="text" name="pincode" class="form-control" value="{{ old('pincode', Auth::user()->fullAddress->pincode) }}">
+				<input type="text" name="pincode" class="form-control" value="{{ old('pincode', Auth::user()->fullAddress ? Auth::user()->fullAddress->pincode : '') }}">
 			</div>
 			<div>
 				<button type="submit" class="btn btn-primary">Save</button>
