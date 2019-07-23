@@ -94,6 +94,13 @@
                         
                         <li>
                             <a href="{{ route('checkout') }}">Login</a>
+                        </li>
+                        <li>
+                            <div class="form-group">
+                           
+                                <a href="{{ url('/redirect') }}" class="btn btn-primary">Login with Facebook</a>
+                            
+                            </div>
                         </li>    
 
                         @endif
@@ -209,5 +216,14 @@
 
     .user-login-nav{
         float: right;
+    }
+
+    .product-filters{
+        padding: 20px;
+    }
+
+    .footer{
+        background: #cccc;
+        padding: 20px;
     }
 </style>

@@ -14,11 +14,15 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::where('status', 1)->latest('id')->get();
+        
+        $products = Product::get([
+            'search' => $request->input('s', ''),
+            'orderby' => $request->input('sortby', ''),
+        ]);
 
-        return view('shop')->with('products', $products);
+        return view('shop')->withProducts($products);
     }
 
     /**
@@ -28,8 +32,9 @@ class ShopController extends Controller
      */
     public function productSingle(Request $request, $product)
     {
-        $product = Product::where('title', $product)->first();
+        $product = Product::whereTitle($product)->first();
 
-        return view('product_single')->with('product', $product);
+        return view('product_single')->withProduct($product);
     }
+
 }

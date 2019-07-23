@@ -114,6 +114,8 @@ Route::get('/', 'ShopController@index')->name('shopping');
 
 Route::get('/product/{product}', 'ShopController@productSingle')->name('product_single');
 
+Route::get('/product/category/{category}', 'ProductCategoryController@productsByCategoryName')->name('productCategory');
+
 Route::get('/cart', 'CartController@index')->name('cart');
 
 Route::post('/cart/add', 'CartController@store')->name('saveCart');

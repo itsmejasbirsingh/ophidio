@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductCategory;
-
+use App\Models\Product;
 use Illuminate\Http\Request;
-
 
 class ProductCategoryController extends Controller
 {
@@ -24,17 +23,29 @@ class ProductCategoryController extends Controller
     {
 
     	$request->validate([
-                'category' => 'required|unique:product_categories,name|min:2',
+            'category' => 'required|unique:product_categories,name|min:2',
         ]);
-
-    	$category = $request->input('category');
 
     	$productCategory = new ProductCategory();
 
         $productCategory->store([
-            "name" => $category,
+            "name" => $request->input('category'),
         ]);
 
-        return redirect()->route('addCategory')->with('productCategoryAddStatus', 'Category ' .$category . ' Added!');
+        return back()->with('productCategoryAddStatus', 'Category ' . $request->input('category') . ' Added!');
+    }
+
+    public function productsByCategoryName(Request $request, $category)
+    {
+        $category = ProductCategory::select('id', 'name')->whereName($category)->get()->first();
+
+        $products = Product::get([
+            'search' => $request->input('s', ''),
+            'orderby' => $request->input('sortby', ''),
+            'category_id' => $category->id
+        ]);
+
+        return view('shop')->with([ 'products' => $products, 'active_category' => $category->name ]);
+
     }
 }
